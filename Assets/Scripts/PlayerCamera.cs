@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UIElements;
+using Cursor = UnityEngine.Cursor;
 
 public class PlayerCamera : MonoBehaviour
 {
@@ -34,6 +35,9 @@ public class PlayerCamera : MonoBehaviour
     // resets character camera angle/distance/direction back to default on start up
     private void Awake()
     {
+        Cursor.lockState = CursorLockMode.Locked; // Lock cursor to the center of Screen
+        Cursor.visible = false; // Hide Cursor
+        
         _currentDistance = _defaultDistance;
         _targetDistance = _currentDistance;
         _targetVerticalAngle = 0f;

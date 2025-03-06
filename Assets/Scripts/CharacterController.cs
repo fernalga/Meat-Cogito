@@ -15,6 +15,9 @@ public class CharacterController : MonoBehaviour, ICharacterController
     private KinematicCharacterMotor _motor;
 
     [SerializeField]
+    private Vector3 _gravity = new Vector3(0f, -30f, 0f); // gravity fall scale
+    
+    [SerializeField]
     private float _maxStableMoveSpeed = 10f, _stableMovementSharpness = 15f, _orientationSharpness = 10f;  
     
     private Vector3 _moveInputVector, _lookInputVector;
@@ -50,17 +53,26 @@ public class CharacterController : MonoBehaviour, ICharacterController
     }
     public void UpdateVelocity(ref Vector3 currentVelocity, float deltaTime)
     {
-        float currentVelocityMagnitude = currentVelocity.magnitude;
-        Vector3 effectiveGroundNormal = _motor.GroundingStatus.GroundNormal;
-        
-        currentVelocity = _motor.GetDirectionTangentToSurface(currentVelocity, effectiveGroundNormal) * currentVelocityMagnitude;
+        if (_motor.GroundingStatus.IsStableOnGround)
+        {
+            float currentVelocityMagnitude = currentVelocity.magnitude;
+            Vector3 effectiveGroundNormal = _motor.GroundingStatus.GroundNormal;
 
-        Vector3 inputRight = Vector3.Cross(_moveInputVector, _motor.CharacterUp);
-        Vector3 reorientedInput = Vector3.Cross(effectiveGroundNormal, inputRight).normalized * _moveInputVector.magnitude;
+            currentVelocity = _motor.GetDirectionTangentToSurface(currentVelocity, effectiveGroundNormal) *
+                              currentVelocityMagnitude;
 
-        Vector3 targetMovementVelocity = reorientedInput * _maxStableMoveSpeed;
-        
-        currentVelocity = Vector3.Lerp(currentVelocity, targetMovementVelocity, 1f - Mathf.Exp(-_stableMovementSharpness * deltaTime));
+            Vector3 inputRight = Vector3.Cross(_moveInputVector, _motor.CharacterUp);
+            Vector3 reorientedInput = Vector3.Cross(effectiveGroundNormal, inputRight).normalized * _moveInputVector.magnitude;
+
+            Vector3 targetMovementVelocity = reorientedInput * _maxStableMoveSpeed;
+
+            currentVelocity = Vector3.Lerp(currentVelocity, targetMovementVelocity, 1f - Mathf.Exp(-_stableMovementSharpness * deltaTime));
+        }
+        else
+        {
+            // gravity call
+            currentVelocity += _gravity * deltaTime;
+        }
     }
 
     public void BeforeCharacterUpdate(float deltaTime)
