@@ -5,8 +5,8 @@ public class PlayerCamera : MonoBehaviour
 {
     [SerializeField] // variables are editable in unity inspector but remain private
     // Camera distance settings
-    private float _defaultDistance = 6f,
-        _minDistance = 3f, 
+    private float _defaultDistance = 0f,
+        _minDistance = 0f, 
         _maxDistance = 10f,
         _distanceMovementSpeed = 5f,
         _distanceMovementSharpness = 10f, 

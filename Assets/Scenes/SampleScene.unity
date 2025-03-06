@@ -269,8 +269,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b5e1c1c07d8d80418c5c12f0578e15e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _defaultDistance: 6
-  _minDistance: 3
+  _defaultDistance: 0
+  _minDistance: 0
   _maxDistance: 10
   _distanceMovementSpeed: 5
   _distanceMovementSharpness: 10
@@ -723,6 +723,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1309181598}
+  - component: {fileID: 1309181599}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -745,6 +746,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1309181599
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1309181597}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c20b3dfdaaf0dce4aaba5a8bf9d807b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _playerCamera: {fileID: 330585548}
+  _cameraFollowPoint: {fileID: 1046601109}
 --- !u!1 &1678885027
 GameObject:
   m_ObjectHideFlags: 0
