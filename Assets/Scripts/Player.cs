@@ -37,6 +37,7 @@ public class Player : MonoBehaviour
         inputs.MoveAxisForward = Input.GetAxisRaw("Vertical");
         inputs.MoveAxisRight = Input.GetAxisRaw("Horizontal");
         inputs.CameraRotation = _playerCamera.transform.rotation;
+        inputs.JumpPressed = Input.GetKeyDown(KeyCode.Space);
         
         _characterController.SetInputs(ref inputs);
     }

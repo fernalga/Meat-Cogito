@@ -7,6 +7,7 @@ public struct PlayerInputs
     public float MoveAxisForward;
     public float MoveAxisRight;
     public Quaternion CameraRotation;
+    public bool JumpPressed;
 }
 
 public class CharacterController : MonoBehaviour, ICharacterController
@@ -18,9 +19,14 @@ public class CharacterController : MonoBehaviour, ICharacterController
     private Vector3 _gravity = new Vector3(0f, -30f, 0f); // gravity fall scale
     
     [SerializeField]
-    private float _maxStableMoveSpeed = 10f, _stableMovementSharpness = 15f, _orientationSharpness = 10f;  
+    private float _maxStableMoveSpeed = 10f, _stableMovementSharpness = 15f, _orientationSharpness = 10f;
+
+    [SerializeField] 
+    private float _jumpSpeed = 10f;
     
     private Vector3 _moveInputVector, _lookInputVector;
+    private bool _jumpRequested;
+    
     private void Start()
     {
         _motor.CharacterController = this;
@@ -40,6 +46,12 @@ public class CharacterController : MonoBehaviour, ICharacterController
         
         _moveInputVector = cameraPlanarRotation * moveInputVector;
         _lookInputVector = _moveInputVector.normalized;
+
+        if (inputs.JumpPressed)
+        {
+            _jumpRequested = true;
+        }
+        
     }
     
     public void UpdateRotation(ref Quaternion currentRotation, float deltaTime)
@@ -72,6 +84,13 @@ public class CharacterController : MonoBehaviour, ICharacterController
         {
             // gravity call
             currentVelocity += _gravity * deltaTime;
+        }
+
+        if (_jumpRequested)
+        {
+            currentVelocity += (_motor.CharacterUp * _jumpSpeed) - Vector3.Project(currentVelocity, _motor.CharacterUp);
+            _jumpRequested = false;
+            _motor.ForceUnground();
         }
     }
 
