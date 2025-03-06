@@ -47,7 +47,7 @@ public class CharacterController : MonoBehaviour, ICharacterController
         _moveInputVector = cameraPlanarRotation * moveInputVector;
         _lookInputVector = _moveInputVector.normalized;
 
-        if (inputs.JumpPressed)
+        if (inputs.JumpPressed && _motor.GroundingStatus.IsStableOnGround)
         {
             _jumpRequested = true;
         }
