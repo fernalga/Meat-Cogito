@@ -274,12 +274,12 @@ MonoBehaviour:
   _maxDistance: 10
   _distanceMovementSpeed: 5
   _distanceMovementSharpness: 10
-  _rotationSpeed: 10
+  _rotationSpeed: 3
   _rotationSharpness: 10000
   _followSharpness: 10000
   _minVerticalAngle: -90
   _maxVerticalAngle: 90
-  _defaultVerticalAngle: 20
+  _defaultVerticalAngle: 0
 --- !u!1 &360594425
 GameObject:
   m_ObjectHideFlags: 0

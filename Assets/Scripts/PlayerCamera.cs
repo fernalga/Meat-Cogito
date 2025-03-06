@@ -22,7 +22,7 @@ public class PlayerCamera : MonoBehaviour
         // Vertical angle limits (camera up/down)
         _minVerticalAngle = -90f, 
         _maxVerticalAngle = 90f,
-        _defaultVerticalAngle = 20f;
+        _defaultVerticalAngle = 0f;
     
     // Transform references 
     private Transform _followTransform;
@@ -35,9 +35,6 @@ public class PlayerCamera : MonoBehaviour
     // resets character camera angle/distance/direction back to default on start up
     private void Awake()
     {
-        Cursor.lockState = CursorLockMode.Locked; // Lock cursor to the center of Screen
-        Cursor.visible = false; // Hide Cursor
-        
         _currentDistance = _defaultDistance;
         _targetDistance = _currentDistance;
         _targetVerticalAngle = 0f;

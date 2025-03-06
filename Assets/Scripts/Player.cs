@@ -10,9 +10,13 @@ public class Player : MonoBehaviour
     private CharacterController _characterController;
 
     private Vector3 _lookInputVector;
+    
+    private bool _hasClicked = false;
 
     private void Start()
     {
+        Cursor.lockState = CursorLockMode.Locked; // Lock cursor to the center of Screen
+        Cursor.visible = false; // Hide Cursor
         _playerCamera.SetFollowTransform(_cameraFollowPoint);
     }
 
@@ -39,11 +43,24 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
-        HandleCharacterInputs();
+        if (!_hasClicked && Input.GetMouseButtonDown(0))
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+            _hasClicked = true;
+        }
+
+        if (_hasClicked)
+        {
+            HandleCharacterInputs();
+        }
     }
 
     private void LateUpdate()
     {
-        HandleCameraInput();
+        if (_hasClicked)
+        {
+            HandleCameraInput();
+        }
     }
 }
