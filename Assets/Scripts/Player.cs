@@ -6,6 +6,8 @@ public class Player : MonoBehaviour
     private PlayerCamera _playerCamera;
     [SerializeField]
     private Transform _cameraFollowPoint;
+    [SerializeField]
+    private CharacterController _characterController;
 
     private Vector3 _lookInputVector;
 
@@ -23,6 +25,21 @@ public class Player : MonoBehaviour
         
         float scrollInput = -Input.GetAxis("Mouse ScrollWheel");
         _playerCamera.UpdateWithInput(Time.deltaTime, scrollInput, _lookInputVector);
+    }
+
+    private void HandleCharacterInputs()
+    {
+        PlayerInputs inputs = new PlayerInputs();
+        inputs.MoveAxisForward = Input.GetAxisRaw("Vertical");
+        inputs.MoveAxisRight = Input.GetAxisRaw("Horizontal");
+        inputs.CameraRotation = _playerCamera.transform.rotation;
+        
+        _characterController.SetInputs(ref inputs);
+    }
+
+    private void Update()
+    {
+        HandleCharacterInputs();
     }
 
     private void LateUpdate()
