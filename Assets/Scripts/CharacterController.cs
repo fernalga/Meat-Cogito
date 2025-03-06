@@ -70,8 +70,7 @@ public class CharacterController : MonoBehaviour, ICharacterController
             float currentVelocityMagnitude = currentVelocity.magnitude;
             Vector3 effectiveGroundNormal = _motor.GroundingStatus.GroundNormal;
 
-            currentVelocity = _motor.GetDirectionTangentToSurface(currentVelocity, effectiveGroundNormal) *
-                              currentVelocityMagnitude;
+            currentVelocity = _motor.GetDirectionTangentToSurface(currentVelocity, effectiveGroundNormal) * currentVelocityMagnitude;
 
             Vector3 inputRight = Vector3.Cross(_moveInputVector, _motor.CharacterUp);
             Vector3 reorientedInput = Vector3.Cross(effectiveGroundNormal, inputRight).normalized * _moveInputVector.magnitude;
@@ -82,6 +81,11 @@ public class CharacterController : MonoBehaviour, ICharacterController
         }
         else
         {
+            Vector3 airMovement = _moveInputVector * _maxStableMoveSpeed;
+            
+            currentVelocity.x = Mathf.Lerp(currentVelocity.x, airMovement.x, 1f - Mathf.Exp(-_stableMovementSharpness * deltaTime));
+            currentVelocity.z = Mathf.Lerp(currentVelocity.z, airMovement.z, 1f - Mathf.Exp(-_stableMovementSharpness * deltaTime));
+            
             // gravity call
             currentVelocity += _gravity * deltaTime;
         }
