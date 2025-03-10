@@ -64,6 +64,13 @@ public class PlayerCamera : MonoBehaviour
         _planarDirection = rotationFromInput * _planarDirection;
         Quaternion planarRot = Quaternion.LookRotation(_planarDirection, _followTransform.up);
 
+        //To-Do working on
+        // Rotate Character Model when in First Person
+        if (_currentDistance == -0.6294435) // If in first-person mode (zoomed in)
+        {
+            _followTransform.rotation = Quaternion.Slerp(_followTransform.rotation, planarRot, deltaTime * _rotationSharpness);
+        }
+        
         // Calculates vertical rotation (Pitch)
         _targetVerticalAngle -= (rotationInput.y * _rotationSpeed);
         _targetVerticalAngle = Mathf.Clamp(_targetVerticalAngle, _minVerticalAngle, _maxVerticalAngle);

@@ -206,12 +206,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.3442816, y: -0.843, z: -0.142}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 599309794}
   - {fileID: 604473921}
   m_Father: {fileID: 1309181598}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -787,11 +786,11 @@ Transform:
   m_GameObject: {fileID: 599309793}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.303, z: -0.023}
+  m_LocalPosition: {x: 0, y: 1.0244435, z: 0.4786895}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 330585546}
+  m_Father: {fileID: 832891293}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &599309795
 MonoBehaviour:
@@ -1183,6 +1182,7 @@ GameObject:
   - component: {fileID: 832891295}
   - component: {fileID: 832891294}
   - component: {fileID: 832891296}
+  - component: {fileID: 832891297}
   m_Layer: 0
   m_Name: Character
   m_TagString: Untagged
@@ -1205,6 +1205,7 @@ Transform:
   m_Children:
   - {fileID: 1121108753}
   - {fileID: 1046601109}
+  - {fileID: 599309794}
   - {fileID: 591334990}
   m_Father: {fileID: 1309181598}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1291,6 +1292,22 @@ MonoBehaviour:
   _stableMovementSharpness: 15
   _orientationSharpness: 10
   _jumpSpeed: 10
+--- !u!114 &832891297
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 832891292}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e9b05df81fdb35439c4e7f55205114c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interactionPoint: {fileID: 604473921}
+  interactRange: 5
+  holdPoint: {fileID: 591334990}
+  throwForce: 500
 --- !u!1 &860371107
 GameObject:
   m_ObjectHideFlags: 0
@@ -1690,7 +1707,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1309181598}
   - component: {fileID: 1309181599}
-  - component: {fileID: 1309181600}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -1730,23 +1746,7 @@ MonoBehaviour:
   _playerCamera: {fileID: 330585548}
   _cameraFollowPoint: {fileID: 1046601109}
   _characterController: {fileID: 832891296}
-  _interactor: {fileID: 1309181600}
---- !u!114 &1309181600
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1309181597}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2e9b05df81fdb35439c4e7f55205114c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  interactionPoint: {fileID: 604473921}
-  interactRange: 5
-  holdPoint: {fileID: 591334990}
-  throwForce: 500
+  _interactor: {fileID: 0}
 --- !u!1 &1522203587
 GameObject:
   m_ObjectHideFlags: 0
