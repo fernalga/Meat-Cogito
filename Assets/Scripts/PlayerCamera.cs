@@ -8,16 +8,16 @@ public class PlayerCamera : MonoBehaviour
     // Camera distance settings
     private float _defaultDistance = 0f,
         _minDistance = 0f, 
-        _maxDistance = 10f,
+        _maxDistance = 5f,
         _distanceMovementSpeed = 5f,
         _distanceMovementSharpness = 10f, 
         
         // Rotation settings
-        _rotationSpeed = 10f,
+        _rotationSpeed = 5f,
         _rotationSharpness = 10000f,
         
         // Follow smoothing
-        _followSharpness = 10000f, 
+        _followSharpness = 50f, 
         
         // Vertical angle limits (camera up/down)
         _minVerticalAngle = -90f, 
@@ -74,20 +74,33 @@ public class PlayerCamera : MonoBehaviour
         transform.rotation = targetRotation;
     }
 
-    private void HandlePosition(float deltaTime, float zoomInput, Quaternion targetRotation)
+private void HandlePosition(float deltaTime, float zoomInput, Quaternion targetRotation)
+{
+    // Adjust camera zoom distance
+    _targetDistance += zoomInput * _distanceMovementSpeed;
+    _targetDistance = Mathf.Clamp(_targetDistance, _minDistance, _maxDistance);
+
+    // Smoothly update follow position
+    _currentFollowPosition = Vector3.Lerp(_currentFollowPosition, _followTransform.position, 1f - Mathf.Exp(-_followSharpness * deltaTime));
+
+    // Desired camera position before checking collisions
+    Vector3 desiredPosition = _currentFollowPosition - (targetRotation * Vector3.forward * _targetDistance);
+
+    // Raycast to detect collisions
+    if (Physics.Raycast(_currentFollowPosition, desiredPosition - _currentFollowPosition, out RaycastHit hit, _targetDistance))
     {
-        // Adjust camera zoom distance
-        _targetDistance += zoomInput * _distanceMovementSpeed;
-        _targetDistance = Mathf.Clamp(_targetDistance, _minDistance, _maxDistance);
-        
-        // Smoothly update follow position
-        _currentFollowPosition = Vector3.Lerp(_currentFollowPosition, _followTransform.position, 1f - Mathf.Exp(-_followSharpness * deltaTime));
-        
-        // Calculates camera position
-        Vector3 targetPosition = _currentFollowPosition - ((targetRotation * Vector3.forward) * _currentDistance);
-        _currentDistance = Mathf.Lerp(_currentDistance, _targetDistance, 1 - Mathf.Exp(-_distanceMovementSharpness * deltaTime));
-        transform.position = targetPosition;
+        float hitDistance = Mathf.Clamp(hit.distance * 0.9f, _minDistance, _maxDistance); // Keep slight distance from object
+        _currentDistance = Mathf.Lerp(_currentDistance, hitDistance, 1 - Mathf.Exp(-_distanceMovementSharpness * deltaTime)); // Smooth transition
     }
+    else
+    {
+        _currentDistance = Mathf.Lerp(_currentDistance, _targetDistance, 1 - Mathf.Exp(-_distanceMovementSharpness * deltaTime)); // Smooth transition to default zoom
+    }
+
+    // Set final position
+    transform.position = _currentFollowPosition - (targetRotation * Vector3.forward * _currentDistance);
+}
+
 
     public void UpdateWithInput(float deltaTime, float zoomInput, Vector3 rotationInput)
     {

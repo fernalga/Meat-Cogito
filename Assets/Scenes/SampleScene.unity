@@ -271,12 +271,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _defaultDistance: 0
   _minDistance: 0
-  _maxDistance: 10
+  _maxDistance: 5
   _distanceMovementSpeed: 5
   _distanceMovementSharpness: 10
   _rotationSpeed: 3
   _rotationSharpness: 10000
-  _followSharpness: 10000
+  _followSharpness: 50
   _minVerticalAngle: -90
   _maxVerticalAngle: 90
   _defaultVerticalAngle: 0
@@ -950,6 +950,7 @@ MonoBehaviour:
   _maxStableMoveSpeed: 10
   _stableMovementSharpness: 15
   _orientationSharpness: 10
+  _jumpSpeed: 10
 --- !u!1 &860371107
 GameObject:
   m_ObjectHideFlags: 0
