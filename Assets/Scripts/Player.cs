@@ -8,6 +8,8 @@ public class Player : MonoBehaviour
     private Transform _cameraFollowPoint;
     [SerializeField]
     private CharacterController _characterController;
+    [SerializeField]
+    private Interactor _interactor; // Add reference to Interactor
 
     private Vector3 _lookInputVector;
     
