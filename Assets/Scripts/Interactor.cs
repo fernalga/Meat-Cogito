@@ -6,7 +6,9 @@ public class Interactor : MonoBehaviour
     public float interactRange = 5f;   // Range to interact with objects
     public Transform holdPoint;        // Where the object will be held
     public float throwForce = 500f;    // Force to throw the object
-
+    public float rotationSpeed = 5f;   // Speed of rotation
+    public bool isRotatingObject = false; // Tracks if rotating object
+    
     private GameObject heldObject;     // Currently held object
     private Rigidbody heldObjectRb;    // Rigidbody of the held object
 
@@ -33,6 +35,7 @@ public class Interactor : MonoBehaviour
             }
 
             MoveObject();
+            RotateObject();
         }
     }
 
@@ -62,11 +65,17 @@ public class Interactor : MonoBehaviour
     {
         if (heldObject)
         {
-            Physics.IgnoreCollision(heldObject.GetComponent<Collider>(), GetComponent<Collider>(), false); // Enable collision
+            // Ensure collision is re-enabled
+            Physics.IgnoreCollision(heldObject.GetComponent<Collider>(), GetComponent<Collider>(), false);
+
             heldObject.layer = 0; // Reset the layer
-            heldObjectRb.isKinematic = false; // Enable physics again
-            heldObject.transform.parent = null; // Unparent it
-            heldObject = null; // Clear the held object
+            heldObject.transform.parent = null; // Fully detach the object
+
+            heldObjectRb.isKinematic = false; // Enable physics
+            heldObjectRb.linearVelocity = Vector3.zero; // Reset movement
+            heldObjectRb.angularVelocity = Vector3.zero; // Reset spin
+
+            heldObject = null; // Clear the held object reference
         }
     }
 
@@ -74,12 +83,17 @@ public class Interactor : MonoBehaviour
     {
         if (heldObject)
         {
-            Physics.IgnoreCollision(heldObject.GetComponent<Collider>(), GetComponent<Collider>(), false); // Enable collision
+            // Ensure collision is re-enabled
+            Physics.IgnoreCollision(heldObject.GetComponent<Collider>(), GetComponent<Collider>(), false);
+
             heldObject.layer = 0; // Reset the layer
-            heldObjectRb.isKinematic = false; // Enable physics again
-            heldObject.transform.parent = null; // Unparent it
-            heldObjectRb.AddForce(interactionPoint.forward * throwForce); // Apply force to throw
-            heldObject = null; // Clear the held object
+            heldObject.transform.parent = null; // Fully detach the object
+
+            heldObjectRb.isKinematic = false; // Enable physics
+            heldObjectRb.linearVelocity = Vector3.zero; // Reset movement
+            heldObjectRb.angularVelocity = Vector3.zero; // Reset spin
+            heldObjectRb.AddForce(interactionPoint.forward * throwForce);
+            heldObject = null; // Clear the held object reference
         }
     }
 
@@ -89,5 +103,21 @@ public class Interactor : MonoBehaviour
         {
             heldObject.transform.position = holdPoint.position; // Keep it at the holdPoint
         }
+    }
+    
+    void RotateObject()
+    {
+        if (heldObject && Input.GetKey(KeyCode.R))
+        {
+            isRotatingObject = true;
+            
+            float rotateX = Input.GetAxis("Mouse X") * rotationSpeed;
+            float rotateY = Input.GetAxis("Mouse Y") * rotationSpeed;
+
+            // Rotate the held object based on mouse movement
+            heldObject.transform.Rotate(Vector3.up, -rotateX, Space.World);
+            heldObject.transform.Rotate(Vector3.right, rotateY, Space.World);
+        }
+        else isRotatingObject = false;
     }
 }

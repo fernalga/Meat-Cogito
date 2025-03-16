@@ -63,6 +63,12 @@ public class PlayerCamera : MonoBehaviour
     // processes rotation input
     private void HandleRotation(float deltaTime, Vector3 rotationInput, out Quaternion targetRotation)
     {
+        if (FindObjectOfType<Interactor>().isRotatingObject) 
+        {
+            targetRotation = transform.rotation; // Do nothing if rotating an object
+            return;
+        }
+        
         // Yaw (Horizontal Rotation)
         _planarDirection = Quaternion.Euler(0, rotationInput.x * _rotationSpeed, 0) * _planarDirection;
         Quaternion planarRot = Quaternion.LookRotation(_planarDirection, Vector3.up);
