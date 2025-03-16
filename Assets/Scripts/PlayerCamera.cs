@@ -26,13 +26,17 @@ public class PlayerCamera : MonoBehaviour
     // Transform references 
     private Transform _followTransform;
     private Vector3 _currentFollowPos, _planarDirection;
+    [SerializeField] private Transform _playerTransform;
     
     // Distance and angle tracking
     private float _targetVerticalAngle;
     private float _currentDistance, _targetDistance;
     
-    [SerializeField] private Transform _playerTransform;
-
+    // Camera
+    [SerializeField] private Camera _pickupCamera;
+    [SerializeField] private Camera _playerCamera;
+    
+    
     // resets character camera angle/distance/direction back to default on start up
     private void Awake()
     {
@@ -103,7 +107,23 @@ public class PlayerCamera : MonoBehaviour
         // Apply Position
         transform.position = _currentFollowPos - (targetRotation * Vector3.forward * _currentDistance);
     }
+    
+    private void HandlePickUpCamera()
+    {
+        bool isFirstPerson = _currentDistance < 0.1f;
+        _pickupCamera.enabled = isFirstPerson;
 
+        if (isFirstPerson)
+        {
+            // Remove the "Held" layer from PlayerCamera's culling mask
+            _playerCamera.cullingMask &= ~(1 << LayerMask.NameToLayer("Held"));
+        }
+        else
+        {
+            // Add the "Held" layer to PlayerCamera's culling mask in third-person
+            _playerCamera.cullingMask |= (1 << LayerMask.NameToLayer("Held"));
+        }
+    }
 
     public void UpdateWithInput(float deltaTime, float zoomInput, Vector3 rotationInput)
     {
@@ -111,6 +131,7 @@ public class PlayerCamera : MonoBehaviour
         {
             HandleRotation(deltaTime, rotationInput, out Quaternion targetRotation);
             HandlePosition(deltaTime, zoomInput, targetRotation);
+            HandlePickUpCamera();
         }
     }
 }

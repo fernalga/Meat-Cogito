@@ -282,6 +282,8 @@ MonoBehaviour:
   _minVerticalAngle: -90
   _maxVerticalAngle: 90
   _playerTransform: {fileID: 832891293}
+  _pickupCamera: {fileID: 599309797}
+  _playerCamera: {fileID: 330585545}
 --- !u!1 &360594425
 GameObject:
   m_ObjectHideFlags: 0
