@@ -34,7 +34,8 @@ ExportedObj/
 .consulo/
 *.csproj
 *.unityproj
-!.sln
+*.sln
+!Meat-Cogito.sln
 *.suo
 *.tmp
 *.user
