@@ -59,34 +59,45 @@ public class PlayerCamera : MonoBehaviour
     {
         _defaultDistance = Mathf.Clamp(_defaultDistance, _minDistance, _maxDistance);
     }
+    
+    public bool IsFirstPerson()
+    {
+        return _currentDistance < 0.1f; // Return if the camera is in first-person mode
+    }
 
     // processes rotation input
     private void HandleRotation(float deltaTime, Vector3 rotationInput, out Quaternion targetRotation)
     {
-        if (FindObjectOfType<Interactor>().isRotatingObject) 
+        bool isFirstPerson = IsFirstPerson(); // Check if in first-person mode
+
+        if (FindObjectOfType<Interactor>().isRotatingObject)
         {
             targetRotation = transform.rotation; // Do nothing if rotating an object
             return;
         }
-        
-        // Yaw (Horizontal Rotation)
+
+        // In third-person, apply horizontal rotation based on movement input
         _planarDirection = Quaternion.Euler(0, rotationInput.x * _rotationSpeed, 0) * _planarDirection;
         Quaternion planarRot = Quaternion.LookRotation(_planarDirection, Vector3.up);
-
-        // Rotate Character Model when in First Person
-        if (_currentDistance < 0.1)
+        
+        // Handle Horizontal Rotation (Yaw)
+        if (isFirstPerson)
         {
+            // In first-person, rotate horizontally with the mouse input
             _playerTransform.rotation = planarRot;
         }
 
-        // Pitch (Vertical Rotation)
+        // Pitch (Vertical Rotation) logic remains the same
         _targetVerticalAngle = Mathf.Clamp(_targetVerticalAngle - (rotationInput.y * _rotationSpeed), _minVerticalAngle, _maxVerticalAngle);
         Quaternion verticalRot = Quaternion.Euler(_targetVerticalAngle, 0, 0);
 
-        // Final Camera Rotation
+        // Final Camera Rotation (combined with the vertical angle)
         targetRotation = planarRot * verticalRot;
-        transform.rotation = targetRotation;
+        transform.rotation = targetRotation; // Apply the final rotation to the camera
     }
+
+
+
 
     private void HandlePosition(float deltaTime, float zoomInput, Quaternion targetRotation)
     {
@@ -116,7 +127,7 @@ public class PlayerCamera : MonoBehaviour
     
     private void HandlePickUpCamera()
     {
-        bool isFirstPerson = _currentDistance < 0.1f;
+        bool isFirstPerson = isFirstPerson = IsFirstPerson();
         _pickupCamera.enabled = isFirstPerson;
 
         if (isFirstPerson)
@@ -135,6 +146,7 @@ public class PlayerCamera : MonoBehaviour
     {
         if (_followTransform)
         {
+            Debug.DrawRay(_playerTransform.position, _playerTransform.forward * 5f, Color.blue);
             HandleRotation(deltaTime, rotationInput, out Quaternion targetRotation);
             HandlePosition(deltaTime, zoomInput, targetRotation);
             HandlePickUpCamera();

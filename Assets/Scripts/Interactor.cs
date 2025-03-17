@@ -7,7 +7,7 @@ public class Interactor : MonoBehaviour
     public Transform holdPoint;        // Where the object will be held
     public float throwForce = 500f;    // Force to throw the object
     public float rotationSpeed = 5f;   // Speed of rotation
-    public bool isRotatingObject = false; // Tracks if rotating object
+    public bool isRotatingObject; // Tracks if rotating object
     
     private GameObject heldObject;     // Currently held object
     private Rigidbody heldObjectRb;    // Rigidbody of the held object
@@ -92,7 +92,7 @@ public class Interactor : MonoBehaviour
             heldObjectRb.isKinematic = false; // Enable physics
             heldObjectRb.linearVelocity = Vector3.zero; // Reset movement
             heldObjectRb.angularVelocity = Vector3.zero; // Reset spin
-            heldObjectRb.AddForce(interactionPoint.forward * throwForce);
+            heldObjectRb.AddForce(interactionPoint.transform.forward * throwForce);
             heldObject = null; // Clear the held object reference
         }
     }
