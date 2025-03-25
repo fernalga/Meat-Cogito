@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.UIElements;
 using Cursor = UnityEngine.Cursor;
@@ -6,9 +7,9 @@ public class PlayerCamera : MonoBehaviour
 {
     [SerializeField] // variables are editable in unity inspector but remain private
     // Camera distance settings
-    private float _defaultDistance = 3f,
+    private float _defaultDistance = 0f,
         _minDistance = 0f,
-        _maxDistance = 5f,
+        _maxDistance = 3f,
         _distanceSpeed = 5f,
         _distanceSharpness = 10f,
 
@@ -82,15 +83,16 @@ public class PlayerCamera : MonoBehaviour
     {
         return _firstPersonCamera.gameObject.activeSelf;
     }
-
+    
     // processes rotation input
     private void HandleRotation(Vector3 rotationInput, out Quaternion targetRotation)
     {
         bool isFirstPerson = IsFirstPerson(); // Check if in first-person mode
-
-        if (FindObjectOfType<Interactor>().isRotatingObject)
-        {
-            targetRotation = transform.rotation; // Do nothing if rotating an object
+        
+        if (FindObjectOfType<Interactor>().isRotatingObject && isFirstPerson)
+        { 
+            _playerTransform.rotation = Quaternion.Euler(0, transform.rotation.eulerAngles.y, 0);
+            targetRotation = transform.rotation;
             return;
         }
 
@@ -113,10 +115,7 @@ public class PlayerCamera : MonoBehaviour
         targetRotation = planarRot * verticalRot;
         transform.rotation = targetRotation; // Apply the final rotation to the camera
     }
-
-
-
-
+    
     private void HandlePosition(float deltaTime, float zoomInput, Quaternion targetRotation)
     {
         // Adjust Camera Distance
@@ -133,11 +132,14 @@ public class PlayerCamera : MonoBehaviour
                 _targetDistance))
         {
             _currentDistance = Mathf.Lerp(_currentDistance,
-                Mathf.Clamp(hit.distance * 0.9f, _minDistance, _maxDistance),
+                Mathf.Clamp(hit.distance * 0.2f, _minDistance, _maxDistance),
                 1 - Mathf.Exp(-_distanceSharpness * deltaTime));
         }
         else
-            _currentDistance = Mathf.Lerp(_currentDistance, _targetDistance, 1 - Mathf.Exp(-_distanceSharpness * deltaTime));
+        {
+            _currentDistance = Mathf.Lerp(_currentDistance, _targetDistance,
+                1 - Mathf.Exp(-_distanceSharpness * deltaTime));
+        }
 
         // Apply Position
         transform.position = _currentFollowPos - (targetRotation * Vector3.forward * _currentDistance);

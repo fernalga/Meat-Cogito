@@ -12,6 +12,13 @@ public class Interactor : MonoBehaviour
     private GameObject heldObject;     // Currently held object
     private Rigidbody heldObjectRb;    // Rigidbody of the held object
 
+    private CapsuleCollider playerCollider; 
+    
+    void Start()
+    {
+        // Get the player's CapsuleCollider
+        playerCollider = GetComponent<CapsuleCollider>();
+    }
     void Update()
     {
         Debug.DrawRay(interactionPoint.position, interactionPoint.forward * interactRange, Color.red);
@@ -51,7 +58,6 @@ public class Interactor : MonoBehaviour
 
     void TryPickUp()
     {
-        Camera activeCam = GetActiveCamera();
         RaycastHit hit;
         if (Physics.Raycast(interactionPoint.position, interactionPoint.forward, out hit, interactRange))
         {
@@ -69,7 +75,7 @@ public class Interactor : MonoBehaviour
         heldObjectRb.isKinematic = true; // Disable physics while holding
         heldObject.transform.parent = holdPoint; // Parent it to the holdPoint
         heldObject.layer = LayerMask.NameToLayer("Held"); // Set layer to Held
-        Physics.IgnoreCollision(heldObject.GetComponent<Collider>(), GetComponent<Collider>(), true); // Ignore collision with player
+        playerCollider.enabled = false;
     }
 
     void DropObject()
@@ -77,7 +83,7 @@ public class Interactor : MonoBehaviour
         if (heldObject)
         {
             // Ensure collision is re-enabled
-            Physics.IgnoreCollision(heldObject.GetComponent<Collider>(), GetComponent<Collider>(), false);
+            playerCollider.enabled = true;
 
             heldObject.layer = 0; // Reset the layer
             heldObject.transform.parent = null; // Fully detach the object
@@ -95,7 +101,7 @@ public class Interactor : MonoBehaviour
         if (heldObject)
         {
             // Ensure collision is re-enabled
-            Physics.IgnoreCollision(heldObject.GetComponent<Collider>(), GetComponent<Collider>(), false);
+            playerCollider.enabled = true;
 
             heldObject.layer = 0; // Reset the layer
             heldObject.transform.parent = null; // Fully detach the object
@@ -126,8 +132,8 @@ public class Interactor : MonoBehaviour
             float rotateY = Input.GetAxis("Mouse Y") * rotationSpeed;
 
             // Rotate the held object based on mouse movement
-            heldObject.transform.Rotate(Vector3.up, -rotateX, Space.World);
-            heldObject.transform.Rotate(Vector3.right, rotateY, Space.World);
+            heldObject.transform.Rotate(Vector3.up, -rotateX, Space.Self);
+            heldObject.transform.Rotate(Vector3.right, rotateY, Space.Self);
         }
         else isRotatingObject = false;
     }
