@@ -38,9 +38,20 @@ public class Interactor : MonoBehaviour
             RotateObject();
         }
     }
+    
+    private Camera GetActiveCamera()
+    {
+        PlayerCamera playerCamera = FindObjectOfType<PlayerCamera>();
+        if (playerCamera.IsFirstPerson())
+        {
+            return playerCamera.FirstPersonCamera;
+        }
+        return playerCamera.ThirdPersonCamera;
+    }
 
     void TryPickUp()
     {
+        Camera activeCam = GetActiveCamera();
         RaycastHit hit;
         if (Physics.Raycast(interactionPoint.position, interactionPoint.forward, out hit, interactRange))
         {
@@ -92,7 +103,7 @@ public class Interactor : MonoBehaviour
             heldObjectRb.isKinematic = false; // Enable physics
             heldObjectRb.linearVelocity = Vector3.zero; // Reset movement
             heldObjectRb.angularVelocity = Vector3.zero; // Reset spin
-            heldObjectRb.AddForce(interactionPoint.transform.forward * throwForce);
+            heldObjectRb.AddForce(GetActiveCamera().transform.forward * throwForce);
             heldObject = null; // Clear the held object reference
         }
     }

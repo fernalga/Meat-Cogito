@@ -6,7 +6,7 @@ public class PlayerCamera : MonoBehaviour
 {
     [SerializeField] // variables are editable in unity inspector but remain private
     // Camera distance settings
-    private float _defaultDistance = 0f,
+    private float _defaultDistance = 3f,
         _minDistance = 0f,
         _maxDistance = 5f,
         _distanceSpeed = 5f,
@@ -33,8 +33,14 @@ public class PlayerCamera : MonoBehaviour
     private float _currentDistance, _targetDistance;
     
     // Camera
+    private Camera _currentActiveCamera;
+    public Camera FirstPersonCamera => _firstPersonCamera;
+    public Camera ThirdPersonCamera => _thirdPersonCamera;
+    
+    [Header("Camera Mode Settings")]
     [SerializeField] private Camera _pickupCamera;
-    [SerializeField] private Camera _playerCamera;
+    [SerializeField] private Camera _firstPersonCamera;
+    [SerializeField] private Camera _thirdPersonCamera;
     
     
     // resets character camera angle/distance/direction back to default on start up
@@ -44,6 +50,7 @@ public class PlayerCamera : MonoBehaviour
         _targetDistance = _currentDistance;
         _targetVerticalAngle = 0f;
         _planarDirection = Vector3.forward;
+        SetFirstPersonMode(false);
     }
 
     // Bridges camera,input, and character controller
@@ -60,13 +67,24 @@ public class PlayerCamera : MonoBehaviour
         _defaultDistance = Mathf.Clamp(_defaultDistance, _minDistance, _maxDistance);
     }
     
+    public void SetFirstPersonMode(bool firstPersonEnabled)
+    {
+        _firstPersonCamera.gameObject.SetActive(firstPersonEnabled);
+        _thirdPersonCamera.gameObject.SetActive(!firstPersonEnabled);
+        
+        // Update which camera is active
+        _currentActiveCamera = firstPersonEnabled ? _firstPersonCamera : _thirdPersonCamera;
+        
+        // Update distance for legacy zoom system
+        _currentDistance = firstPersonEnabled ? 0f : _defaultDistance;
+    }
     public bool IsFirstPerson()
     {
-        return _currentDistance < 0.1f; // Return if the camera is in first-person mode
+        return _firstPersonCamera.gameObject.activeSelf;
     }
 
     // processes rotation input
-    private void HandleRotation(float deltaTime, Vector3 rotationInput, out Quaternion targetRotation)
+    private void HandleRotation(Vector3 rotationInput, out Quaternion targetRotation)
     {
         bool isFirstPerson = IsFirstPerson(); // Check if in first-person mode
 
@@ -127,18 +145,16 @@ public class PlayerCamera : MonoBehaviour
     
     private void HandlePickUpCamera()
     {
-        bool isFirstPerson = isFirstPerson = IsFirstPerson();
+        bool isFirstPerson = IsFirstPerson();
         _pickupCamera.enabled = isFirstPerson;
 
         if (isFirstPerson)
         {
-            // Remove the "Held" layer from PlayerCamera's culling mask
-            _playerCamera.cullingMask &= ~(1 << LayerMask.NameToLayer("Held"));
+            _currentActiveCamera.cullingMask &= ~(1 << LayerMask.NameToLayer("Held"));
         }
         else
         {
-            // Add the "Held" layer to PlayerCamera's culling mask in third-person
-            _playerCamera.cullingMask |= (1 << LayerMask.NameToLayer("Held"));
+            _currentActiveCamera.cullingMask |= (1 << LayerMask.NameToLayer("Held"));
         }
     }
 
@@ -146,9 +162,31 @@ public class PlayerCamera : MonoBehaviour
     {
         if (_followTransform)
         {
-            Debug.DrawRay(_playerTransform.position, _playerTransform.forward * 5f, Color.blue);
-            HandleRotation(deltaTime, rotationInput, out Quaternion targetRotation);
-            HandlePosition(deltaTime, zoomInput, targetRotation);
+            // Store previous state
+            bool wasFirstPerson = IsFirstPerson();
+        
+            // Apply zoom input first
+            _targetDistance = Mathf.Clamp(_targetDistance + zoomInput * _distanceSpeed, _minDistance, _maxDistance);
+
+            // Determine if we should switch modes
+            bool shouldBeFirstPerson = _targetDistance <= _minDistance + 0.01f; // Small buffer
+            bool modeChanged = wasFirstPerson != shouldBeFirstPerson;
+
+            // Only switch modes if we're moving in the appropriate direction
+            if (modeChanged)
+            {
+                if (shouldBeFirstPerson && zoomInput < 0) // Only switch to FP when zooming in
+                {
+                    SetFirstPersonMode(true);
+                }
+                else if (!shouldBeFirstPerson && zoomInput > 0) // Only switch to TP when zooming out
+                {
+                    SetFirstPersonMode(false);
+                }
+            }
+
+            HandleRotation(rotationInput, out Quaternion targetRotation);
+            HandlePosition(deltaTime, 0, targetRotation); // Pass 0 for zoomInput since we already processed it
             HandlePickUpCamera();
         }
     }
