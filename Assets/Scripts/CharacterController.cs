@@ -14,6 +14,8 @@ public class CharacterController : MonoBehaviour, ICharacterController
 {
     [SerializeField]
     private KinematicCharacterMotor _motor;
+    [SerializeField]
+    private Animator _animator;
 
     [SerializeField]
     private Vector3 _gravity = new Vector3(0f, -30f, 0f); // gravity fall scale
@@ -30,6 +32,16 @@ public class CharacterController : MonoBehaviour, ICharacterController
     private void Start()
     {
         _motor.CharacterController = this;
+    }
+
+    private void Update()
+    {
+        if (_animator)
+        {
+            bool isMoving = Mathf.Abs(Input.GetAxisRaw("Vertical")) > 0 || Mathf.Abs(Input.GetAxisRaw("Horizontal")) > 0;
+            _animator.SetBool("isRunning", isMoving);
+        }
+        Debug.Log("isRunning: " + _animator.GetBool("isRunning"));
     }
 
     public void SetInputs(ref PlayerInputs inputs)
@@ -51,7 +63,6 @@ public class CharacterController : MonoBehaviour, ICharacterController
         {
             _jumpRequested = true;
         }
-        
     }
     
     public void UpdateRotation(ref Quaternion currentRotation, float deltaTime)
