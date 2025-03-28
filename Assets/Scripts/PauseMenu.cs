@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PauseMenu : MonoBehaviour
 {
@@ -8,8 +9,25 @@ public class PauseMenu : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        PauseMenuUI.SetActive(false);
-        Cursor.visible = false;
+        // Reset pause state on scene load
+        isPaused = false;
+        Time.timeScale = 1f;
+
+        // Only hide cursor in gameplay scenes (not menus)
+        if (SceneManager.GetActiveScene().name != "MainMenu")
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+        }
+        else
+        {
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+        }
+
+        // Deactivate pause menu on start
+        if (PauseMenuUI != null)
+            PauseMenuUI.SetActive(false);
     }
 
     // Update is called once per frame
@@ -26,17 +44,35 @@ public class PauseMenu : MonoBehaviour
 
     public void PauseGame()
     {
-        PauseMenuUI.SetActive(true);
+        if (PauseMenuUI != null)
+            PauseMenuUI.SetActive(true);
+        
         Time.timeScale = 0f;
+        Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
         isPaused = true;
     }
     
     public void ResumeGame()
     {
-        PauseMenuUI.SetActive(false);
+        if (PauseMenuUI != null)
+            PauseMenuUI.SetActive(false);
+
         Time.timeScale = 1f;
+        Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         isPaused = false;
+    }
+
+    public void GoToMainMenu()
+    {
+        Time.timeScale = 1f;
+        isPaused = false;
+        SceneManager.LoadScene("MainMenu");
+    }
+
+    public void QuitGame()
+    {
+        Application.Quit();
     }
 }
