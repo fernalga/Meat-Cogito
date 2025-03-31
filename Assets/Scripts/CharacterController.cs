@@ -41,7 +41,6 @@ public class CharacterController : MonoBehaviour, ICharacterController
             bool isMoving = Mathf.Abs(Input.GetAxisRaw("Vertical")) > 0 || Mathf.Abs(Input.GetAxisRaw("Horizontal")) > 0;
             _animator.SetBool("isRunning", isMoving);
         }
-        Debug.Log("isRunning: " + _animator.GetBool("isRunning"));
     }
 
     public void SetInputs(ref PlayerInputs inputs)
