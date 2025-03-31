@@ -4,6 +4,7 @@ using UnityEngine.SceneManagement;
 public class PauseMenu : MonoBehaviour
 {
     public GameObject PauseMenuUI;
+    public SettingsMenu settingsMenu;
 
     public static bool isPaused;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -33,11 +34,24 @@ public class PauseMenu : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape)) {
-            if (isPaused) {
-                ResumeGame();
-            } else {
-                PauseGame();
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            // If the settings menu is open, close it first
+            if (settingsMenu != null && settingsMenu.IsSettingsOpen())
+            {
+                settingsMenu.CloseSettings();
+            }
+            else
+            {
+                // Otherwise, toggle pause menu as usual
+                if (isPaused)
+                {
+                    ResumeGame();
+                }
+                else
+                {
+                    PauseGame();
+                }
             }
         }
     }

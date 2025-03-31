@@ -38,6 +38,8 @@ public class PlayerCamera : MonoBehaviour
     public Camera FirstPersonCamera => _firstPersonCamera;
     public Camera ThirdPersonCamera => _thirdPersonCamera;
     
+    public float mouseSensitivity = 1.0f;
+    
     [Header("Camera Mode Settings")]
     [SerializeField] private Camera _pickupCamera;
     [SerializeField] private Camera _firstPersonCamera;
@@ -97,7 +99,7 @@ public class PlayerCamera : MonoBehaviour
         }
 
         // In third-person, apply horizontal rotation based on movement input
-        _planarDirection = Quaternion.Euler(0, rotationInput.x * _rotationSpeed, 0) * _planarDirection;
+        _planarDirection = Quaternion.Euler(0, rotationInput.x * _rotationSpeed * mouseSensitivity, 0) * _planarDirection;
         Quaternion planarRot = Quaternion.LookRotation(_planarDirection, Vector3.up);
         
         // Handle Horizontal Rotation (Yaw)
@@ -108,7 +110,7 @@ public class PlayerCamera : MonoBehaviour
         }
 
         // Pitch (Vertical Rotation) logic remains the same
-        _targetVerticalAngle = Mathf.Clamp(_targetVerticalAngle - (rotationInput.y * _rotationSpeed), _minVerticalAngle, _maxVerticalAngle);
+        _targetVerticalAngle = Mathf.Clamp(_targetVerticalAngle - (rotationInput.y * _rotationSpeed * mouseSensitivity), _minVerticalAngle, _maxVerticalAngle);
         Quaternion verticalRot = Quaternion.Euler(_targetVerticalAngle, 0, 0);
 
         // Final Camera Rotation (combined with the vertical angle)
