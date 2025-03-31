@@ -21,28 +21,32 @@ public class Interactor : MonoBehaviour
     }
     void Update()
     {
-        Debug.DrawRay(interactionPoint.position, interactionPoint.forward * interactRange, Color.red);
-
-        if (!heldObject)
+        if (!PauseMenu.isPaused)
         {
-            if (Input.GetKeyDown(KeyCode.E))
-            {
-                TryPickUp();
-            }
-        }
-        else
-        {
-            if (Input.GetKeyDown(KeyCode.E))
-            {
-                DropObject();
-            }
-            if (Input.GetMouseButtonDown(0)) // Left click to throw object
-            {
-                ThrowObject();
-            }
+            Debug.DrawRay(interactionPoint.position, interactionPoint.forward * interactRange, Color.red);
 
-            MoveObject();
-            RotateObject();
+            if (!heldObject)
+            {
+                if (Input.GetKeyDown(KeyCode.E))
+                {
+                    TryPickUp();
+                }
+            }
+            else
+            {
+                if (Input.GetKeyDown(KeyCode.E))
+                {
+                    DropObject();
+                }
+
+                if (Input.GetMouseButtonDown(0)) // Left click to throw object
+                {
+                    ThrowObject();
+                }
+
+                MoveObject();
+                RotateObject();
+            }
         }
     }
     

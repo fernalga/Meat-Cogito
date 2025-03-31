@@ -33,6 +33,10 @@ public class PlayerCamera : MonoBehaviour
     private float _targetVerticalAngle;
     private float _currentDistance, _targetDistance;
     
+    private string playerLayerName = "Player";
+    private int _playerLayer;
+    private LayerMask _originalFirstPersonMask;
+    
     // Camera
     private Camera _currentActiveCamera;
     public Camera FirstPersonCamera => _firstPersonCamera;
@@ -49,6 +53,7 @@ public class PlayerCamera : MonoBehaviour
     // resets character camera angle/distance/direction back to default on start up
     private void Awake()
     {
+        _playerLayer = LayerMask.NameToLayer(playerLayerName);
         _currentDistance = _defaultDistance;
         _targetDistance = _currentDistance;
         _targetVerticalAngle = 0f;
@@ -72,8 +77,19 @@ public class PlayerCamera : MonoBehaviour
     
     public void SetFirstPersonMode(bool firstPersonEnabled)
     {
+        if (_originalFirstPersonMask == 0)
+        {
+            _originalFirstPersonMask = _firstPersonCamera.cullingMask;
+        }
+        
         _firstPersonCamera.gameObject.SetActive(firstPersonEnabled);
         _thirdPersonCamera.gameObject.SetActive(!firstPersonEnabled);
+        _currentActiveCamera = firstPersonEnabled ? _firstPersonCamera : _thirdPersonCamera;
+        
+        // First-person: Hide player layer only
+        _firstPersonCamera.cullingMask = firstPersonEnabled 
+            ? _originalFirstPersonMask & ~(1 << _playerLayer)  // Remove player layer
+            : _originalFirstPersonMask;                       // Restore original
         
         // Update which camera is active
         _currentActiveCamera = firstPersonEnabled ? _firstPersonCamera : _thirdPersonCamera;
