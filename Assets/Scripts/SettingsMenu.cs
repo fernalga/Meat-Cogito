@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.UI;
 using System.IO;
+using TMPro;
 
 public class SettingsMenu : MonoBehaviour
 {
@@ -11,8 +12,8 @@ public class SettingsMenu : MonoBehaviour
     private bool isSettingsOpen = false;
 
     public AudioMixer audioMixers;
-    public Dropdown resolutionDropdown;
-    public Dropdown qualityDropdown;
+    public TMPro.TMP_Dropdown resolutionDropdown;
+    public TMPro.TMP_Dropdown qualityDropdown;
     public Slider volSlider;
     public Toggle fullScreenToggle;
     
