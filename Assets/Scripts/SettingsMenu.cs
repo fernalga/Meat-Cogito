@@ -43,7 +43,7 @@ public class SettingsMenu : MonoBehaviour
         List<string> options = new List<string>();
 
         int currentResolutionIndex = 0;
-        for (int i = 0; i < resolutions.Length; i++)
+        for (int i = resolutions.Length - 1; i >= 0; i--)
         {
             string option = resolutions[i].width + " x " + resolutions[i].height + " @ " + resolutions[i].refreshRate +
                             "hz";
@@ -53,7 +53,7 @@ public class SettingsMenu : MonoBehaviour
                 resolutions[i].height == Screen.currentResolution.height &&
                 resolutions[i].refreshRate == Screen.currentResolution.refreshRate)
             {
-                currentResolutionIndex = i;
+                currentResolutionIndex = - 1 - i;
 
             }
         }
@@ -88,7 +88,8 @@ public class SettingsMenu : MonoBehaviour
 
     public void SetResolution(int resolutionIndex)
     {
-        Resolution resolution = resolutions[resolutionIndex];
+        int originalIndex = resolutions.Length - 1 - resolutionIndex;
+        Resolution resolution = resolutions[originalIndex];
         Screen.SetResolution(resolution.width, resolution.height, Screen.fullScreen);
     }
 
