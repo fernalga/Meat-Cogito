@@ -517,6 +517,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Settings
       objectReference: {fileID: 0}
+    - target: {fileID: 5942134453645762116, guid: 7815413e6fba63d4aa0d7b37e8a474e1, type: 3}
+      propertyPath: Gif
+      value: 
+      objectReference: {fileID: 11400000, guid: ac03db8ec9e80a1468c66466cd4cb91d, type: 2}
     - target: {fileID: 8057690480853238262, guid: 7815413e6fba63d4aa0d7b37e8a474e1, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
