@@ -4,8 +4,8 @@ using UnityEngine;
 public class FlickeringLight : MonoBehaviour
 {
     private Light lightToFlicker;
-    [SerializeField, Range(0f, 3f)] private float minIntensity = 0.5f;
-    [SerializeField, Range(0f, 3f)] private float maxIntensity = 0.5f;
+    [SerializeField, Range(0f, 1000f)] private float minIntensity = 0.5f;
+    [SerializeField, Range(0f, 1000f)] private float maxIntensity = 0.5f;
     [SerializeField, Min(0f)] private float timeBetweenIntensity = 0.1f;
 
     private float currentTimer;

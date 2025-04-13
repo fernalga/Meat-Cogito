@@ -14,7 +14,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &6916982281588763773
 Transform:
@@ -100,6 +100,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Upper_Scaffold (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: f5d8781c8af03e9458a5a049c60ff984, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -161,6 +165,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: fd3081af3c2a53346b1f8c00e67d7a00, type: 3}
       propertyPath: m_Name
       value: Pipe_Hinge (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: fd3081af3c2a53346b1f8c00e67d7a00, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -224,6 +232,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Grid_Walkway_Straight
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: f2c9cebe513c1ea45a8bb23d7de81962, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -285,6 +297,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 5194db410d4557d49ab829e3d4fd2e01, type: 3}
       propertyPath: m_Name
       value: Grid_Window
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 5194db410d4557d49ab829e3d4fd2e01, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -348,6 +364,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Pipe_Hinge
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: fd3081af3c2a53346b1f8c00e67d7a00, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -409,6 +429,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: fd3081af3c2a53346b1f8c00e67d7a00, type: 3}
       propertyPath: m_Name
       value: Pipe_Hinge (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: fd3081af3c2a53346b1f8c00e67d7a00, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -472,6 +496,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Upper_Scaffold_Grid
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: d63e4732614872240b37a9615d2874e7, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -533,6 +561,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: fd3081af3c2a53346b1f8c00e67d7a00, type: 3}
       propertyPath: m_Name
       value: Pipe_Hinge (5)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: fd3081af3c2a53346b1f8c00e67d7a00, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -596,6 +628,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Oct_LeftWindow
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 4b538eb6f36cb1a46ad75f8b76bf4641, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -657,6 +693,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 516339d2f8109af4cb27cd0d67d7227b, type: 3}
       propertyPath: m_Name
       value: Vent
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 516339d2f8109af4cb27cd0d67d7227b, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -720,6 +760,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Pipe_Hinge (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: fd3081af3c2a53346b1f8c00e67d7a00, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -781,6 +825,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: fdf5c769da34a6c43add53d97adb28c9, type: 3}
       propertyPath: m_Name
       value: Oct_InnerSect
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: fdf5c769da34a6c43add53d97adb28c9, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -844,6 +892,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Pipe_Hinge (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: fd3081af3c2a53346b1f8c00e67d7a00, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -905,6 +957,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: fdf5c769da34a6c43add53d97adb28c9, type: 3}
       propertyPath: m_Name
       value: Oct_InnerSect (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: fdf5c769da34a6c43add53d97adb28c9, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -968,6 +1024,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Fan
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 62ab17206257c1d49ac20fc08fa5de77, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1030,6 +1090,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Oct_InnerSect (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: fdf5c769da34a6c43add53d97adb28c9, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1091,6 +1155,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: f5d8781c8af03e9458a5a049c60ff984, type: 3}
       propertyPath: m_Name
       value: Upper_Scaffold
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: f5d8781c8af03e9458a5a049c60ff984, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
