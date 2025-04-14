@@ -1371,7 +1371,7 @@ MonoBehaviour:
   active: 1
   distance:
     m_OverrideState: 1
-    m_Value: 103
+    m_Value: 158
   baseHeight:
     m_OverrideState: 1
     m_Value: 0
