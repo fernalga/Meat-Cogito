@@ -1916,6 +1916,7 @@ GameObject:
   - component: {fileID: 5984119057718435315}
   - component: {fileID: 393180146793642791}
   - component: {fileID: 3151468863168055546}
+  - component: {fileID: 1877438060393633301}
   m_Layer: 0
   m_Name: Grid_Walkway_Straight
   m_TagString: Untagged
@@ -2013,6 +2014,27 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -9170143492235678532, guid: f2c9cebe513c1ea45a8bb23d7de81962, type: 3}
+--- !u!65 &1877438060393633301
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8320065882650902601}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 4, y: 0.01999998, z: 8}
+  m_Center: {x: -0.00814271, y: -1.6158581, z: -0.0020151138}
 --- !u!1 &8744405669903859709
 GameObject:
   m_ObjectHideFlags: 0
