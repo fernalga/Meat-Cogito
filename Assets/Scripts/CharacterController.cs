@@ -28,6 +28,7 @@ public class CharacterController : MonoBehaviour, ICharacterController
     
     private Vector3 _moveInputVector, _lookInputVector;
     private bool _jumpRequested;
+    public bool canMove = true;
     
     private void Start()
     {
@@ -45,6 +46,8 @@ public class CharacterController : MonoBehaviour, ICharacterController
 
     public void SetInputs(ref PlayerInputs inputs)
     {
+        if (!canMove) return;
+        
         Vector3 moveInputVector = Vector3.ClampMagnitude(new Vector3(inputs.MoveAxisRight, 0f, inputs.MoveAxisForward),1f);
         Vector3 cameraPlanarDirection = Vector3.ProjectOnPlane(inputs.CameraRotation * Vector3.forward, _motor.CharacterUp).normalized;
 

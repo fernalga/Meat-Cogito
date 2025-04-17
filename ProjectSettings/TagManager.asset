@@ -6,6 +6,7 @@ TagManager:
   tags:
   - canPickUp
   - Trigger
+  - TV
   layers:
   - Default
   - TransparentFX

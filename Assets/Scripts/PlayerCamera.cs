@@ -1,7 +1,5 @@
 using System;
 using UnityEngine;
-using UnityEngine.UIElements;
-using Cursor = UnityEngine.Cursor;
 
 public class PlayerCamera : MonoBehaviour
 {
@@ -177,9 +175,17 @@ public class PlayerCamera : MonoBehaviour
             _currentActiveCamera.cullingMask |= (1 << LayerMask.NameToLayer("Held"));
         }
     }
-
+    
+    public static class CameraBlocker
+    {
+        public static bool BlockCameraInput = false;
+    }
+    
     public void UpdateWithInput(float deltaTime, float zoomInput, Vector3 rotationInput)
     {
+        if (CameraBlocker.BlockCameraInput)
+            return;
+        
         if (_followTransform)
         {
             // Store previous state

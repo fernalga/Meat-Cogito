@@ -17,13 +17,11 @@ public class PauseMenu : MonoBehaviour
         // Only hide cursor in gameplay scenes (not menus)
         if (SceneManager.GetActiveScene().name != "MainMenu")
         {
-            Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;
+            CursorManager.Instance.ReleaseCursor("PauseMenu");
         }
         else
         {
-            Cursor.lockState = CursorLockMode.None;
-            Cursor.visible = true;
+            CursorManager.Instance.RequestCursor("PauseMenu");
         }
 
         // Deactivate pause menu on start
@@ -47,10 +45,12 @@ public class PauseMenu : MonoBehaviour
                 if (isPaused)
                 {
                     ResumeGame();
+                    CursorManager.Instance.ReleaseCursor("PauseMenu");
                 }
                 else
                 {
                     PauseGame();
+                    CursorManager.Instance.RequestCursor("PauseMenu");
                 }
             }
         }
@@ -62,8 +62,7 @@ public class PauseMenu : MonoBehaviour
             PauseMenuUI.SetActive(true);
         
         Time.timeScale = 0f;
-        Cursor.lockState = CursorLockMode.None;
-        Cursor.visible = true;
+        CursorManager.Instance.RequestCursor("PauseMenu");
         isPaused = true;
     }
     
@@ -73,8 +72,7 @@ public class PauseMenu : MonoBehaviour
             PauseMenuUI.SetActive(false);
 
         Time.timeScale = 1f;
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
+        CursorManager.Instance.ReleaseCursor("PauseMenu");
         isPaused = false;
     }
 
