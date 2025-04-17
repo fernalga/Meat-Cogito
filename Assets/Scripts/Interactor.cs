@@ -2,73 +2,79 @@ using UnityEngine;
 
 public class Interactor : MonoBehaviour
 {
-    public Transform interactionPoint; // The point from which interaction occurs
-    public float interactRange = 5f;   // Range to interact with objects
-    public Transform holdPoint;        // Where the object will be held
-    public float throwForce = 500f;    // Force to throw the object
-    public float rotationSpeed = 5f;   // Speed of rotation
-    public bool isRotatingObject; // Tracks if rotating object
-    
-    private GameObject heldObject;     // Currently held object
-    private Rigidbody heldObjectRb;    // Rigidbody of the held object
+    [Header("Interaction Settings")]
+    public Transform interactionPoint;
+    public float interactRange = 5f;
 
-    private CapsuleCollider playerCollider; 
+    [Header("Object Handling")]
+    public Transform holdPoint;
+    public float throwForce = 500f;
+    public float rotationSpeed = 5f;
     
+    [HideInInspector] public bool isRotatingObject;
+
+    private GameObject heldObject;
+    private Rigidbody heldObjectRb;
+    private CapsuleCollider playerCollider;
+    private TVViewInteract currentTVView;
+    
+    Rigidbody heldObjectRigidbody;  // Reference to the Rigidbody
+    bool isHoldingObject = false;
+
     void Start()
     {
-        // Get the player's CapsuleCollider
         playerCollider = GetComponent<CapsuleCollider>();
     }
+
     void Update()
     {
-        if (!PauseMenu.isPaused)
-        {
-            Debug.DrawRay(interactionPoint.position, interactionPoint.forward * interactRange, Color.red);
+        if (PauseMenu.isPaused) return;
+        interactionPoint.rotation = GetActiveCamera().transform.rotation;
+        Debug.DrawRay(interactionPoint.position, interactionPoint.forward * interactRange, Color.red);
 
-            if (!heldObject)
-            {
-                if (Input.GetKeyDown(KeyCode.E))
-                {
-                    TryPickUp();
-                }
-            }
+        HandleInput();
+    }
+
+    void HandleInput()
+    {
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            if (heldObject)
+                DropObject();
             else
-            {
-                if (Input.GetKeyDown(KeyCode.E))
-                {
-                    DropObject();
-                }
+                TryInteract();
+        }
 
-                if (Input.GetMouseButtonDown(0)) // Left click to throw object
-                {
-                    ThrowObject();
-                }
+        if (heldObject)
+        {
+            if (Input.GetMouseButtonDown(0)) // Left click to throw
+                ThrowObject();
 
-                MoveObject();
-                RotateObject();
-            }
+            MoveObject();
+            RotateObject();
         }
     }
-    
-    private Camera GetActiveCamera()
-    {
-        PlayerCamera playerCamera = FindObjectOfType<PlayerCamera>();
-        if (playerCamera.IsFirstPerson())
-        {
-            return playerCamera.FirstPersonCamera;
-        }
-        return playerCamera.ThirdPersonCamera;
-    }
 
-    void TryPickUp()
+    void TryInteract()
     {
-        RaycastHit hit;
-        if (Physics.Raycast(interactionPoint.position, interactionPoint.forward, out hit, interactRange))
+        if (currentTVView != null && currentTVView.isViewing)
         {
-            if (hit.transform.CompareTag("canPickUp"))
-            {
-                PickUpObject(hit.transform.gameObject);
-            }
+            currentTVView.ExitView();
+            currentTVView = null;
+            return;
+        }
+        
+        if (!Physics.Raycast(interactionPoint.position, interactionPoint.forward, out RaycastHit hit, interactRange)) return;
+
+        string tag = hit.transform.tag;
+        if (tag == "canPickUp")
+        {
+            PickUpObject(hit.collider.gameObject);
+        }
+        else if (tag == "TV" && hit.collider.TryGetComponent(out TVViewInteract tv))
+        {
+            tv.ViewTV();
+            currentTVView = tv;
         }
     }
 
@@ -76,69 +82,72 @@ public class Interactor : MonoBehaviour
     {
         heldObject = obj;
         heldObjectRb = obj.GetComponent<Rigidbody>();
-        heldObjectRb.isKinematic = true; // Disable physics while holding
-        heldObject.transform.parent = holdPoint; // Parent it to the holdPoint
-        heldObject.layer = LayerMask.NameToLayer("Held"); // Set layer to Held
+
+        heldObjectRb.isKinematic = true;
+        heldObject.transform.SetParent(holdPoint);
+        heldObject.layer = LayerMask.NameToLayer("Held");
+
         playerCollider.enabled = false;
     }
 
     void DropObject()
     {
-        if (heldObject)
-        {
-            // Ensure collision is re-enabled
-            playerCollider.enabled = true;
+        if (!heldObject) return;
 
-            heldObject.layer = 0; // Reset the layer
-            heldObject.transform.parent = null; // Fully detach the object
+        FinalizeObjectRelease();
 
-            heldObjectRb.isKinematic = false; // Enable physics
-            heldObjectRb.linearVelocity = Vector3.zero; // Reset movement
-            heldObjectRb.angularVelocity = Vector3.zero; // Reset spin
-
-            heldObject = null; // Clear the held object reference
-        }
+        heldObject = null;
+        heldObjectRb = null;
     }
 
     void ThrowObject()
     {
-        if (heldObject)
-        {
-            // Ensure collision is re-enabled
-            playerCollider.enabled = true;
+        if (!heldObject) return;
 
-            heldObject.layer = 0; // Reset the layer
-            heldObject.transform.parent = null; // Fully detach the object
+        FinalizeObjectRelease();
+        heldObjectRb.AddForce(GetActiveCamera().transform.forward * throwForce);
 
-            heldObjectRb.isKinematic = false; // Enable physics
-            heldObjectRb.linearVelocity = Vector3.zero; // Reset movement
-            heldObjectRb.angularVelocity = Vector3.zero; // Reset spin
-            heldObjectRb.AddForce(GetActiveCamera().transform.forward * throwForce);
-            heldObject = null; // Clear the held object reference
-        }
+        heldObject = null;
+        heldObjectRb = null;
+    }
+
+    void FinalizeObjectRelease()
+    {
+        playerCollider.enabled = true;
+
+        heldObject.layer = 0;
+        heldObject.transform.parent = null;
+
+        heldObjectRb.isKinematic = false;
+        heldObjectRb.linearVelocity = Vector3.zero;
+        heldObjectRb.angularVelocity = Vector3.zero;
     }
 
     void MoveObject()
     {
-        if (heldObject)
-        {
-            heldObject.transform.position = holdPoint.position; // Keep it at the holdPoint
-        }
+        heldObject.transform.position = holdPoint.position;
     }
-    
+
     void RotateObject()
     {
-        if (heldObject && Input.GetKey(KeyCode.R))
+        if (!Input.GetKey(KeyCode.R))
         {
-            isRotatingObject = true;
-            
-            float rotateX = Input.GetAxis("Mouse X") * rotationSpeed;
-            float rotateY = Input.GetAxis("Mouse Y") * rotationSpeed;
-
-            // Rotate the held object based on mouse movement
-            heldObject.transform.Rotate(Vector3.up, -rotateX, Space.Self);
-            heldObject.transform.Rotate(Vector3.right, rotateY, Space.Self);
+            isRotatingObject = false;
+            return;
         }
-        else isRotatingObject = false;
+
+        isRotatingObject = true;
+
+        float rotateX = Input.GetAxis("Mouse X") * rotationSpeed;
+        float rotateY = Input.GetAxis("Mouse Y") * rotationSpeed;
+
+        heldObject.transform.Rotate(Vector3.up, -rotateX, Space.World);
+        heldObject.transform.Rotate(Vector3.right, rotateY, Space.World);
+    }
+
+    Camera GetActiveCamera()
+    {
+        PlayerCamera playerCamera = FindObjectOfType<PlayerCamera>();
+        return playerCamera.IsFirstPerson() ? playerCamera.FirstPersonCamera : playerCamera.ThirdPersonCamera;
     }
 }
