@@ -168,7 +168,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   interactionPoint: {fileID: 7771484645050377270}
   interactRange: 5
-  holdPoint: {fileID: 7771484645050377270}
+  holdPoint: {fileID: 7675862670756842848}
   throwForce: 500
   rotationSpeed: 5
   isRotatingObject: 0
@@ -253,7 +253,7 @@ MonoBehaviour:
   _distanceSharpness: 10
   _rotationSpeed: 5
   _rotationSharpness: 10000
-  _followSharpness: 50
+  _followSharpness: 20
   _minVerticalAngle: -90
   _maxVerticalAngle: 90
   _playerTransform: {fileID: 2127611384245155549}
@@ -344,7 +344,7 @@ Camera:
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 55
+    m_Bits: 311
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -852,7 +852,7 @@ Camera:
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 256
+    m_Bits: 0
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0

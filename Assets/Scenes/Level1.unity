@@ -9899,7 +9899,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1605870191164399751, guid: 1f11771a06c53504aa63a1f0642822e3, type: 3}
       propertyPath: near clip plane
-      value: 0.7
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 1605870191164399751, guid: 1f11771a06c53504aa63a1f0642822e3, type: 3}
       propertyPath: m_CullingMask.m_Bits
@@ -9915,7 +9915,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3241870485144838957, guid: 1f11771a06c53504aa63a1f0642822e3, type: 3}
       propertyPath: m_CullingMask.m_Bits
-      value: 183
+      value: 4294967295
       objectReference: {fileID: 0}
     - target: {fileID: 4339333160020572649, guid: 1f11771a06c53504aa63a1f0642822e3, type: 3}
       propertyPath: m_CastShadows
@@ -9949,6 +9949,14 @@ PrefabInstance:
       propertyPath: m_RenderPostProcessing
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5994643974671955990, guid: 1f11771a06c53504aa63a1f0642822e3, type: 3}
+      propertyPath: m_RequiresDepthTextureOption
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5994643974671955990, guid: 1f11771a06c53504aa63a1f0642822e3, type: 3}
+      propertyPath: m_RequiresOpaqueTextureOption
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 6085076250486002250, guid: 1f11771a06c53504aa63a1f0642822e3, type: 3}
       propertyPath: m_TagString
       value: Player
@@ -9956,6 +9964,10 @@ PrefabInstance:
     - target: {fileID: 6506090909444464880, guid: 1f11771a06c53504aa63a1f0642822e3, type: 3}
       propertyPath: m_RenderPostProcessing
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6820247031635614442, guid: 1f11771a06c53504aa63a1f0642822e3, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6846145757489140987, guid: 1f11771a06c53504aa63a1f0642822e3, type: 3}
       propertyPath: m_LocalPosition.x
@@ -9997,12 +10009,20 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6876040428378893563, guid: 1f11771a06c53504aa63a1f0642822e3, type: 3}
+      propertyPath: m_CullingMask.m_Bits
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7014695547354906650, guid: 1f11771a06c53504aa63a1f0642822e3, type: 3}
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 8251252973641231210, guid: 1f11771a06c53504aa63a1f0642822e3, type: 3}
       propertyPath: m_Antialiasing
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8251252973641231210, guid: 1f11771a06c53504aa63a1f0642822e3, type: 3}
+      propertyPath: m_Cameras.Array.size
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8251252973641231210, guid: 1f11771a06c53504aa63a1f0642822e3, type: 3}

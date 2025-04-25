@@ -168,7 +168,7 @@ public class PlayerCamera : MonoBehaviour
 
         if (isFirstPerson)
         {
-            _currentActiveCamera.cullingMask &= ~(1 << LayerMask.NameToLayer("Held"));
+            //_currentActiveCamera.cullingMask &= ~(1 << LayerMask.NameToLayer("Held"));
         }
         else
         {

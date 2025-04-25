@@ -4,6 +4,7 @@ public class TVViewInteract : MonoBehaviour
 {
     public Transform tvCamAnchor;
     private Vector3 originalCamPosition;
+    private Transform originalParent;
     private Quaternion originalCamRotation;
     public Camera pickUpCamera;
     public Camera firstPersonCamera;
@@ -21,12 +22,14 @@ public class TVViewInteract : MonoBehaviour
         CursorManager.Instance.RequestCursor("TVView");
         
         // Save pickUpCamera positon at the moment of interaction
-        originalCamPosition = pickUpCamera.transform.position;
-        originalCamRotation = pickUpCamera.transform.rotation;
+        originalCamPosition = firstPersonCamera.transform.position;
+        originalCamRotation = firstPersonCamera.transform.rotation;
+        originalParent = firstPersonCamera.transform.parent;
         
         // Snap to TV view
-        pickUpCamera.transform.position = tvCamAnchor.position;
-        pickUpCamera.transform.rotation = tvCamAnchor.rotation;
+        firstPersonCamera.transform.SetParent(tvCamAnchor); // Parent to anchor
+        firstPersonCamera.transform.localPosition = Vector3.zero;
+        firstPersonCamera.transform.localRotation = Quaternion.identity;
 
         pickUpCamera.enabled = true;
 
@@ -39,9 +42,9 @@ public class TVViewInteract : MonoBehaviour
         playerController.canMove = true;
 
         CursorManager.Instance.ReleaseCursor("TVView");
-            
-        pickUpCamera.transform.position = originalCamPosition;
-        pickUpCamera.transform.rotation = originalCamRotation;
+        firstPersonCamera.transform.SetParent(originalParent);
+        firstPersonCamera.transform.position = originalCamPosition;
+        firstPersonCamera.transform.rotation = originalCamRotation;
         
         pickUpCamera.enabled = false;
         firstPersonCamera.gameObject.SetActive(true);
