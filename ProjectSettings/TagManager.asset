@@ -7,6 +7,7 @@ TagManager:
   - canPickUp
   - Trigger
   - TV
+  - FloatingObject
   layers:
   - Default
   - TransparentFX
