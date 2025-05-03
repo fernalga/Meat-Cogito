@@ -9,10 +9,10 @@
 ## 📜 **Project Dossier**  
 | Document | Description |  
 |----------|-------------|  
-| [📄 Proposal](Project_Proposal.pdf) | Original scope, timeline, and tools |  
-| [🎮 Design Doc](Game_Design_Document.pdf) | Mechanics, narrative, and USP |  
-| [🎬 Storyboard](Meat_Cogito_Storyboard.pdf) | Scene-by-scene breakdown |  
-| [📊 Presentation](Final_Presentation.pdf) | Development process & demo |  
+| [📄 Proposal](/Docs/Project_Proposal.pdf) | Original scope, timeline, and tools |  
+| [🎮 Design Doc](/Docs/Game_Design_Document.pdf) | Mechanics, narrative, and USP |  
+| [🎬 Storyboard](/Docs/Meat_Cogito_Storyboard.pdf) | Scene-by-scene breakdown |  
+| [📊 Presentation](/Docs/Final_Presentation.pdf) | Development process & demo |  
 
 
 ## 🧠 **Abstract**  
