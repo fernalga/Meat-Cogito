@@ -48,25 +48,27 @@ You awaken as a **disembodied brain** in a surreal simulation where:
 ## 🎥 **Features**  
 ### 1. **Unsettling UI/UX**  
 - Glitching UI (shifting fonts, hex code messages)
-![MainMenu (wip)](https://github.com/user-attachments/assets/23fbd7e2-6296-42d1-837f-bf47ebba6f2f)
-![PauseMenu](https://github.com/user-attachments/assets/a39d1432-0332-47f0-84c2-ed98e6d4e0f1)
-![{SettingsMenu}](https://github.com/user-attachments/assets/1ef8dbcc-364e-48bc-9ab4-8e4e18870c02)
-
-
 - *Project VERI* VHS tape with creepy CAPTCHA tests
+- Game "crashes" itself as narrative device
+<img src="https://github.com/user-attachments/assets/23fbd7e2-6296-42d1-837f-bf47ebba6f2f" alt="MainMenu (wip)" width="400" height="225" />
+<img src="https://github.com/user-attachments/assets/a39d1432-0332-47f0-84c2-ed98e6d4e0f1" alt="PauseMenu" width="400" height="225" />
+<img src="https://github.com/user-attachments/assets/1ef8dbcc-364e-48bc-9ab4-8e4e18870c02" alt="SettingsMenu" width="400" height="225" />
+
 
 
 https://github.com/user-attachments/assets/336fa6e7-3ef8-49a7-bc36-cda200b4ca29
 
-![{B47DD21B-D631-484D-9F1F-77C7C0EED55C}](https://github.com/user-attachments/assets/5a2399cc-7359-4ddc-b04e-1db174d25a96)
-
-
-- Game "crashes" itself as narrative device  
+![Humanity-Test](https://github.com/user-attachments/assets/8493863f-39c6-46c4-9915-fa6e9a7bfe42)
 
 ### 2. **Player Avatar & Interaction**  
 - 3D brain avatar with Blender-modeled animations  
 - Objects react to being examined (pickup/rotate/toss)  
-- Spaceship corridor meltdown sequence  
+- Spaceship corridor meltdown sequence
+
+![Animation](https://github.com/user-attachments/assets/8c0549eb-d570-4050-bd86-18456d70125e)
+![Interaction](https://github.com/user-attachments/assets/b5feae11-fb43-42c9-a52e-832598ecad21)
+![Ending](https://github.com/user-attachments/assets/42821c41-a87f-4c7f-95ba-8503aaed5469)
+
 
 ### 3. **Philosophical Terror**  
 ```csharp
@@ -89,8 +91,12 @@ new Question() {
 | Audio           | FL Studio          | [![FL Studio](https://img.shields.io/badge/FL_Studio-21-purple?logo=fl-studio)](https://image-line.com) |
 
 ## 🌌 Storyboard Highlights
+![{Hightlight 3}](https://github.com/user-attachments/assets/4718a1ac-5adc-4206-9548-663851b212a0)
 
-![{Storyboard Highlight}](https://github.com/user-attachments/assets/0c69f8b9-2286-43ee-ae29-a00313326977)
+
+![{Highlight 7}](https://github.com/user-attachments/assets/a7b7588a-0ed5-4ae0-afea-4fde7643b8fc)
+
+
 
 
 *"The walls breathe. Your choices make them bleed."*
