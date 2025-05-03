@@ -11,7 +11,7 @@
 |----------|-------------|  
 | [📄 Proposal](/Docs/Project_Proposal.pdf) | Original scope, timeline, and tools |  
 | [🎮 Design Doc](/Docs/Game_Design_Document.pdf) | Mechanics, narrative, and USP |  
-| [🎬 Storyboard](/Docs/Meat_Cogito_Storyboard.pdf) | Scene-by-scene breakdown |  
+| [🎬 Storyboard](/Docs/Meat_Cogito_Story_Board.pdf) | Scene-by-scene breakdown |  
 | [📊 Presentation](/Docs/Final_Presentation.pdf) | Development process & demo |  
 
 
