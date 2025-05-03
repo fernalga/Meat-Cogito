@@ -72,7 +72,7 @@ You awaken as a **disembodied brain** in a surreal simulation where:
 <img src="https://github.com/user-attachments/assets/a39d1432-0332-47f0-84c2-ed98e6d4e0f1" alt="PauseMenu" width="400" height="225" />
 <img src="https://github.com/user-attachments/assets/1ef8dbcc-364e-48bc-9ab4-8e4e18870c02" alt="SettingsMenu" width="400" height="225" />
 
-
+[Watch the Project VERI Video (Mobile)](https://youtu.be/NesPqv8QVW4)
 
 https://github.com/user-attachments/assets/336fa6e7-3ef8-49a7-bc36-cda200b4ca29
 
