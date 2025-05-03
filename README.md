@@ -6,7 +6,25 @@
 
 ---
 
-## 📜 **Project Dossier**  
+# **Table of Contents**
+1. [📜 Project Documentation](#-project-documentation)
+2. [🧠 Abstract](#-abstract)
+   - [The Premise](#the-premise)
+   - [The Questions](#the-questions)
+   - [The Experience](#the-experience)
+   - [Technical Execution](#technical-execution)
+3. [🎥 Features](#-features)
+   - [Unsettling UI/UX](#1-unsettling-uiux)
+   - [Player Avatar & Interaction](#2-player-avatar--interaction)
+   - [Philosophical Terror](#3-philosophical-terror)
+4. [🔧 Tech Stack](#-tech-stack)
+5. [🌌 Storyboard Highlights](#-storyboard-highlights)
+6. [🚧 Future Experiments](#-future-experiments)
+7. [⁉️ FAQ](#️-faq)
+
+---
+
+## 📜 **Project Documentation**  
 | Document | Description |  
 |----------|-------------|  
 | [📄 Proposal](/Docs/Project_Proposal.pdf) | Original scope, timeline, and tools |  
